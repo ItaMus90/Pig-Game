@@ -1,8 +1,6 @@
 var scores, roundScore, activePlayer;
 
-scores = [0,0];
-roundScore = 0;
-activePlayer = 0;
+init();
 
 /*//Math.floor return int nuber because Math.random() retrun decimal number
 //Math.random() return decimal number between 1 to 0 and so we multiply in 6 then the number is
@@ -13,11 +11,30 @@ dice = Math.floor(Math.random() * 6) + 1;*/
 /*document.querySelector('#current-' + activePlayer).textContent = dice;
 document.querySelector('#current-' + activePlayer).innerHTML = '<em>' + dice + '</em>';*/
 
-document.getElementById('score-0').textContent = '0';
-document.getElementById('score-1').textContent = '0';
-document.getElementById('current-0').textContent = '0';
-document.getElementById('current-1').textContent = '0';
+//Function for init parm (Global variable) and other
+function init(){
+    scores = [0,0];
+    activePlayer = 0;
+    roundScore = 0;
+    
+    document.querySelector('.dice').style.display = 'none';
+    
+    document.getElementById('score-0').textContent = '0';
+    document.getElementById('score-1').textContent = '0';
+    document.getElementById('current-0').textContent = '0';
+    document.getElementById('current-1').textContent = '0';
+    
+    document.getElementById('name-0').textContent = 'Player 1';
+    document.getElementById('name-1').textContent = 'Player 2';
+    document.querySelector('.player-0-panel').classList.remove('winner');
+    document.querySelector('.player-1-panel').classList.remove('winner');
+    document.querySelector('.player-0-panel').classList.remove('active');
+    document.querySelector('.player-1-panel').classList.remove('active');
+    
+    document.querySelector('.player-0-panel').classList.add('active');
 
+
+}
 
 //Function to toggle between 2 players
 function nextPlayer(){
@@ -58,7 +75,7 @@ document.querySelector('.btn-roll').addEventListener('click', function(){
         //Add score
         roundScore += dice;
         document.querySelector('#current-' + activePlayer).textContent = roundScore;
-    }else if(dice === 1){
+    }else{
         //Next Player
         nextPlayer();
     }
@@ -86,6 +103,9 @@ document.querySelector('.btn-hold').addEventListener('click',function(){
     }
     
 });
+
+//Handle in button New Game -> passing the function init
+document.querySelector('.btn-new').addEventListener('click', init);
 
 
 
