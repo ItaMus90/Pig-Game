@@ -10,3 +10,12 @@ After that, it's the next player's turn.
 -> After that, it's the next player's turn.
 -> The first player to reach 100 points on Global score wins the game
 
+Updating Game Rules:
+1.A Player loose his Entire score when he rolls tow 6 in row.
+After that, it's the next player's turn.
+
+New Faeture To Game:
+1.Player can Change set the winning score in index.html (they can change the predefined score of 100)
+
+2.Another dice add to game, now you have 2 dices now.
+The Player loose when one of them is a 1.
