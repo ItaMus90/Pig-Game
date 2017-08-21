@@ -1,4 +1,4 @@
-var scores, roundScore, activePlayer, gamePlaying;
+var scores, roundScore, activePlayer, gamePlaying, lastDice;
 
 init();
 
@@ -71,8 +71,13 @@ document.querySelector('.btn-roll').addEventListener('click', function(){
         diceDOM.style.display = 'block';
         diceDOM.src = 'resources/css/image/dice-' + dice + '.png';
 
-        //3.Update the round score If the rolled number was NOT a 1
-        if(dice !== 1){
+        //3.Update the round score If the rolled number was NOT a 1 Or get twice dice 6
+        if(dice === 6 && lastDice === 6){
+            //Player loose score
+            scores[activePlayer] = 0;
+            document.querySelector('#score-' + activePlayer).textContent = scores[activePlayer];
+            nextPlayer();
+        }else if(dice !== 1){
             //Add score
             roundScore += dice;
             document.querySelector('#current-' + activePlayer).textContent = roundScore;
@@ -80,6 +85,8 @@ document.querySelector('.btn-roll').addEventListener('click', function(){
             //Next Player
             nextPlayer();
         }
+        
+        lastDice = dice;
     }
 });
 
