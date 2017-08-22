@@ -57,22 +57,25 @@ function nextPlayer(){
         document.querySelector('.player-1-panel').classList.toggle('active');
         
         //hide the dice image 
-        document.querySelector('.dice').style.display = 'none';
+        document.getElementById('dice-1').style.display = 'none';
+        document.getElementById('dice-2').style.display = 'none';
 }
 
 //Handle in button Roll Dice
 document.querySelector('.btn-roll').addEventListener('click', function(){
     if(gamePlaying){
         //1. Random number
-        var dice = Math.floor(Math.random() * 6) + 1;
+        var dice1 = Math.floor(Math.random() * 6) + 1;
+        var dice2 = Math.floor(Math.random() * 6) + 1;
 
         //2.Display the result 
-        var diceDOM = document.querySelector('.dice');
-        diceDOM.style.display = 'block';
-        diceDOM.src = 'resources/css/image/dice-' + dice + '.png';
+        document.getElementById('dice-1').style.display = 'block';
+        document.getElementById('dice-2').style.display = 'block';
+        document.getElementById('dice-1').src = 'resources/css/image/dice-' + dice1 + '.png';
+        document.getElementById('dice-2').src = 'resources/css/image/dice-' + dice2 + '.png';
 
         //3.Update the round score If the rolled number was NOT a 1 Or get twice dice 6
-        if(dice === 6 && lastDice === 6){
+/*        if(dice1 === 6 && lastDice === 6){
             //Player loose score
             scores[activePlayer] = 0;
             document.querySelector('#score-' + activePlayer).textContent = scores[activePlayer];
@@ -86,7 +89,16 @@ document.querySelector('.btn-roll').addEventListener('click', function(){
             nextPlayer();
         }
         
-        lastDice = dice;
+        lastDice = dice;*/
+        
+        if(dice1 !== 1 && dice2 !== 1){
+            //Add score
+            roundScore += (dice1 + dice2);
+            document.querySelector('#current-' + activePlayer).textContent = roundScore;
+        }else{
+            //Next Player
+            nextPlayer();
+        }
     }
 });
 
@@ -113,8 +125,8 @@ document.querySelector('.btn-hold').addEventListener('click',function(){
         //Cheack if player won the game 
         if(scores[activePlayer] >= winningScore){
             document.querySelector('#name-' + activePlayer).textContent = 'Winner!';
-            document.querySelector('.dice').style.display = 'none';
-            document.querySelector('.player-' + activePlayer + '-panel').classList.add('winner');
+            document.getElementById('dice-1').style.display = 'none';
+            document.getElementById('dice-2').style.display = 'none';                 document.querySelector('.player-' + activePlayer + '-panel').classList.add('winner');
             document.querySelector('.player-' + activePlayer + '-panel').classList.remove('active');
             gamePlaying = false;
         }else{
